@@ -3,13 +3,14 @@ import { BookDto } from './dto/Books.dto';
 import { Book } from './book.entity';
 import { InjectRepository } from '@nestjs/typeorm'; 
 import { Repository } from 'typeorm'; 
-
+import { InjectMetric } from '@willsoto/nestjs-prometheus'; 
+import { Counter } from 'prom-client'; 
 
 @Injectable()
 export class BooksService {
 
   constructor(
-    @InjectRepository(Book) private booksRepository: Repository<Book>, 
+    @InjectRepository(Book) private booksRepository: Repository<Book>, @InjectMetric('books_served') public counter:  Counter<string>
   ) {}
 
   async findAll(params): Promise<Book[]> { 

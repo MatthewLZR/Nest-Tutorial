@@ -7,11 +7,12 @@ import { configService } from './books/config/config.service';
 import { WinstonModule } from 'nest-winston'; 
 import * as winston from 'winston';
 import * as path from 'path';
-
+import { HealthModule } from './health/health.module';
 //
 @Module({
   imports: [
-    BooksModule, 
+    BooksModule,
+    HealthModule,
     TypeOrmModule.forRoot( 
       configService.getTypeOrmConfig(),
     ), WinstonModule.forRoot({
